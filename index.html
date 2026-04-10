@@ -82,6 +82,10 @@
             color: green;
         }
 
+        .error {
+            color: red;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -94,11 +98,12 @@
         }
     </style>
 </head>
+
 <body>
 
 <div class="card">
     <h2>🚀 API Integration</h2>
-    <p class="subtitle">Frontend ↔ Backend Demo</p>
+    <p class="subtitle">Frontend ↔ AWS Backend Demo</p>
 
     <input type="text" id="nameInput" placeholder="Enter your name" />
     <button onclick="sendData()">Send Request</button>
@@ -109,9 +114,13 @@
 <script>
     async function sendData() {
         const name = document.getElementById("nameInput").value;
+        const responseDiv = document.getElementById("response");
+
+        responseDiv.classList.remove("error");
+        responseDiv.innerText = "Loading... ⏳";
 
         try {
-            const res = await fetch("http://127.0.0.1:5000/api/test", {
+            const res = await fetch("http://13.233.123.153:5000/api/test", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -120,9 +129,11 @@
             });
 
             const data = await res.json();
-            document.getElementById("response").innerText = data.message;
+
+            responseDiv.innerText = data.message;
         } catch (error) {
-            document.getElementById("response").innerText = "Error connecting to backend ❌";
+            responseDiv.classList.add("error");
+            responseDiv.innerText = "Error connecting to backend ❌";
         }
     }
 </script>
