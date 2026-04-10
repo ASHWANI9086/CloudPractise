@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frontend-Backend Integration Test</title>
+</head>
+<body>
+
+    <h2>API Integration Test</h2>
+
+    <input type="text" id="nameInput" placeholder="Enter your name" />
+    <button onclick="sendData()">Send to Backend</button>
+
+    <p id="response"></p>
+
+    <script>
+        async function sendData() {
+            const name = document.getElementById("nameInput").value;
+
+            const res = await fetch("http://127.0.0.1:5000/api/test", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name: name })
+            });
+
+            const data = await res.json();
+            document.getElementById("response").innerText = data.message;
+        }
+    </script>
+
+</body>
+</html>
