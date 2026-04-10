@@ -21,6 +21,5 @@ def test_api():
         "message": f"Hello {name}, Backend Connected Successfully 🚀"
     })
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
