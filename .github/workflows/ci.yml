@@ -1,0 +1,29 @@
+name: Python CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          cd Backend
+          pip install -r requirements.txt
+
+      - name: Run app
+        run: |
+          cd Backend
+          python app.py
